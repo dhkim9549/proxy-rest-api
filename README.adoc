@@ -6,7 +6,9 @@ You will build a proxy server which will bypass a CORS error at browswers.
 
 Edit spring-boot configuration file:
 
+----
 key-rest-api/complete/src/main/resources/application.properties
+----
 
 ----
 mvn clean package
