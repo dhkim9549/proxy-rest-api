@@ -21,11 +21,13 @@ public class ProxyController {
 	private static final Logger log = LoggerFactory.getLogger(ProxyController.class);
 
 	@GetMapping(path="/jnse-rcmd-info")
-        public @ResponseBody String getJnseRcmdInfo(@RequestParam(value = "apiKey") String apiKey) {
+        public @ResponseBody String getJnseRcmdInfo(@RequestParam(value = "apiKey") String apiKey, @RequestParam(value = "age") String age) {
 
 		log.info("apiKey = " + apiKey);
 
-		String url = "https://openapi.hf.go.kr:10880/jnse-rcmd-info/jnse-rcmd-list?dataType=json&SG_APIM=" + apiKey + "&age=99&addr1=%EC%84%9C%EC%9A%B8&weddStcd=1&rentGrntAmt=200000000&myIncmAmt=0&myTotDebtAmt=0";
+		String url = "https://openapi.hf.go.kr:10880/jnse-rcmd-info/jnse-rcmd-list?dataType=json&SG_APIM=" + apiKey
+			+ "&age=" + age
+		       	+ "&addr1=%EC%84%9C%EC%9A%B8&weddStcd=1&rentGrntAmt=200000000&myIncmAmt=0&myTotDebtAmt=0";
 
 		RestTemplate restTemplate = new RestTemplate();
 		String rspsStr = restTemplate.getForObject(url, String.class);
