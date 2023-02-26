@@ -21,13 +21,23 @@ public class ProxyController {
 	private static final Logger log = LoggerFactory.getLogger(ProxyController.class);
 
 	@GetMapping(path="/jnse-rcmd-info")
-        public @ResponseBody String getJnseRcmdInfo(@RequestParam(value = "apiKey") String apiKey, @RequestParam(value = "age") String age) {
+        public @ResponseBody String getJnseRcmdInfo(
+			@RequestParam(value = "apiKey") String apiKey,
+			@RequestParam(value = "age") String age,
+			@RequestParam(value = "rentGrntAmt") String rentGrntAmt,
+			@RequestParam(value = "addr1") String addr1,
+			@RequestParam(value = "addr2") String addr2 
+			) {
 
 		log.info("apiKey = " + apiKey);
 
-		String url = "https://openapi.hf.go.kr:10880/jnse-rcmd-info/jnse-rcmd-list?dataType=json&SG_APIM=" + apiKey
+		String url = "https://openapi.hf.go.kr:10880/jnse-rcmd-info/jnse-rcmd-list?"
+			+ "dataType=json"
+			+ "&SG_APIM=" + apiKey
 			+ "&age=" + age
-		       	+ "&addr1=%EC%84%9C%EC%9A%B8&weddStcd=1&rentGrntAmt=200000000&myIncmAmt=0&myTotDebtAmt=0"
+			+ "&rentGrntAmt=" + rentGrntAmt
+			+ "&addr1=" + addr1 
+			+ "&addr2=" + addr2 
 			;
 
 		RestTemplate restTemplate = new RestTemplate();
