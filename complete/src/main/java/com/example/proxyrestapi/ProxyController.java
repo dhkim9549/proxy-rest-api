@@ -26,7 +26,25 @@ public class ProxyController {
 			@RequestParam(value = "age") String age,
 			@RequestParam(value = "rentGrntAmt") String rentGrntAmt,
 			@RequestParam(value = "addr1") String addr1,
-			@RequestParam(value = "addr2") String addr2 
+			@RequestParam(value = "addr2") String addr2,
+
+			@RequestParam(value = "weddStcd") String weddStcd,
+			@RequestParam(value = "myIncmAmt") String myIncmAmt,
+			@RequestParam(value = "myTotDebtAmt") String myTotDebtAmt,
+			@RequestParam(value = "sposAnnlIncmAmt") String sposAnnlIncmAmt,
+			@RequestParam(value = "sposDebtAmt") String sposDebtAmt,
+			@RequestParam(value = "ownHsCnt") String ownHsCnt,
+			@RequestParam(value = "chldCnt") String chldCnt,
+
+			@RequestParam(value = "sngpHhldYn") String sngpHhldYn,
+			@RequestParam(value = "plcyCmnrFinUseYn") String plcyCmnrFinUseYn,
+			@RequestParam(value = "petySoweSftprYn") String petySoweSftprYn,
+			@RequestParam(value = "crdtRcvrSprtYn") String crdtRcvrSprtYn,
+			@RequestParam(value = "soclCnsdCndtYn") String soclCnsdCndtYn,
+			@RequestParam(value = "dsblHhldYn") String dsblHhldYn,
+			@RequestParam(value = "ntonMrorHhldYn") String ntonMrorHhldYn,
+			@RequestParam(value = "kwrcHhldYn") String kwrcHhldYn,
+			@RequestParam(value = "mlfmYn") String mlfmYn
 			) {
 
 		log.info("apiKey = " + apiKey);
@@ -38,6 +56,24 @@ public class ProxyController {
 			+ "&rentGrntAmt=" + rentGrntAmt
 			+ "&addr1=" + addr1 
 			+ "&addr2=" + addr2 
+
+			+ "&weddStcd=" + weddStcd 
+			+ "&myIncmAmt=" + myIncmAmt 
+			+ "&myTotDebtAmt=" + myTotDebtAmt 
+			+ "&sposAnnlIncmAmt=" + sposAnnlIncmAmt 
+			+ "&sposDebtAmt=" + sposDebtAmt 
+			+ "&ownHsCnt=" + ownHsCnt
+			+ "&chldCnt=" + chldCnt
+
+			+ "&sngpHhldYn=" + sngpHhldYn 
+			+ "&plcyCmnrFinUseYn=" + plcyCmnrFinUseYn 
+			+ "&petySoweSftprYn=" + petySoweSftprYn 
+			+ "&crdtRcvrSprtYn=" + crdtRcvrSprtYn 
+			+ "&soclCnsdCndtYn=" + soclCnsdCndtYn 
+			+ "&dsblHhldYn=" + dsblHhldYn 
+			+ "&ntonMrorHhldYn=" + ntonMrorHhldYn 
+			+ "&kwrcHhldYn=" + kwrcHhldYn 
+			+ "&mlfmYn=" + mlfmYn
 			;
 
 		RestTemplate restTemplate = new RestTemplate();
