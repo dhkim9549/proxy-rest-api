@@ -1,6 +1,6 @@
 == What You Will Build
 
-You will build a proxy server to call the HF Open API server.
+You will build a proxy server to call HF Open API server.
 This will bypass a CORS error in browswers.
 
 == What You Need
