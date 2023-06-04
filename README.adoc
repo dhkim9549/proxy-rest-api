@@ -5,6 +5,10 @@ This will bypass a CORS error in browswers.
 
 == What You Need
 
+This proxy server retreives an API key from the database generatred by the following batch program.
+
+* https://github.com/dhkim9549/api-key-load[API Key Generator]
+
 Edit spring-boot configuration file:
 
 ----
