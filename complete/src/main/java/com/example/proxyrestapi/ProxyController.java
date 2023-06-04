@@ -13,16 +13,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.client.RestTemplate;
 
-@Controller	// This means that this class is a Controller
-@RequestMapping(path="/proxy") // This means URL's start with /resv (after Application path)
+@Controller
+@RequestMapping(path="/hf-api-proxy")
 @CrossOrigin(origins = "*")
 public class ProxyController {
 
 	private static final Logger log = LoggerFactory.getLogger(ProxyController.class);
 
+	@Autowired
+	private TbApiKeyRepository tbApiKeyRepository;
+
 	@GetMapping(path="/jnse-rcmd-info")
         public @ResponseBody String getJnseRcmdInfo(
-			@RequestParam(value = "apiKey") String apiKey,
 			@RequestParam(value = "age") String age,
 			@RequestParam(value = "rentGrntAmt") String rentGrntAmt,
 			@RequestParam(value = "addr1") String addr1,
@@ -47,6 +49,8 @@ public class ProxyController {
 			@RequestParam(value = "mlfmYn") String mlfmYn
 			) {
 
+		Optional<TbApiKey> optApiKey = tbApiKeyRepository.findById(0);
+		String apiKey = optApiKey.orElse(null).getApiKey();
 		log.info("apiKey = " + apiKey);
 
 		String url = "https://openapi.hf.go.kr:10880/jnse-rcmd-info/jnse-rcmd-list?"
