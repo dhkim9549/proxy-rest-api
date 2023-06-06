@@ -23,30 +23,17 @@ public class ProxyController {
 	@Autowired
 	private TbApiKeyRepository tbApiKeyRepository;
 
-	@GetMapping(path="/jnse-rcmd-info")
+	@GetMapping(path="/jnse-rcmd-info", produces="application/json")
         public @ResponseBody String getJnseRcmdInfo(
-			@RequestParam(value = "age") String age,
 			@RequestParam(value = "rentGrntAmt") String rentGrntAmt,
 			@RequestParam(value = "addr1") String addr1,
 			@RequestParam(value = "addr2") String addr2,
-
-			@RequestParam(value = "weddStcd") String weddStcd,
-			@RequestParam(value = "myIncmAmt") String myIncmAmt,
-			@RequestParam(value = "myTotDebtAmt") String myTotDebtAmt,
-			@RequestParam(value = "sposAnnlIncmAmt") String sposAnnlIncmAmt,
-			@RequestParam(value = "sposDebtAmt") String sposDebtAmt,
-			@RequestParam(value = "ownHsCnt") String ownHsCnt,
-			@RequestParam(value = "chldCnt") String chldCnt,
-
-			@RequestParam(value = "sngpHhldYn") String sngpHhldYn,
-			@RequestParam(value = "plcyCmnrFinUseYn") String plcyCmnrFinUseYn,
-			@RequestParam(value = "petySoweSftprYn") String petySoweSftprYn,
-			@RequestParam(value = "crdtRcvrSprtYn") String crdtRcvrSprtYn,
-			@RequestParam(value = "soclCnsdCndtYn") String soclCnsdCndtYn,
-			@RequestParam(value = "dsblHhldYn") String dsblHhldYn,
-			@RequestParam(value = "ntonMrorHhldYn") String ntonMrorHhldYn,
-			@RequestParam(value = "kwrcHhldYn") String kwrcHhldYn,
-			@RequestParam(value = "mlfmYn") String mlfmYn
+			@RequestParam(value = "age") String age,
+			@RequestParam(value = "weddStcd", defaultValue = "") String weddStcd,
+			@RequestParam(value = "myIncmAmt", defaultValue = "0") String myIncmAmt,
+			@RequestParam(value = "myTotDebtAmt", defaultValue = "0") String myTotDebtAmt,
+			@RequestParam(value = "ownHsCnt", defaultValue = "0") String ownHsCnt,
+			@RequestParam(value = "grntPrmeActnDvcdCont", defaultValue = "") String grntPrmeActnDvcdCont
 			) {
 
 		Optional<TbApiKey> optApiKey = tbApiKeyRepository.findById(0);
@@ -56,29 +43,20 @@ public class ProxyController {
 		String url = "https://openapi.hf.go.kr:10880/jnse-rcmd-info/jnse-rcmd-list?"
 			+ "dataType=json"
 			+ "&SG_APIM=" + apiKey
-			+ "&age=" + age
+
 			+ "&rentGrntAmt=" + rentGrntAmt
 			+ "&addr1=" + addr1 
 			+ "&addr2=" + addr2 
+			+ "&age=" + age 
 
 			+ "&weddStcd=" + weddStcd 
 			+ "&myIncmAmt=" + myIncmAmt 
 			+ "&myTotDebtAmt=" + myTotDebtAmt 
-			+ "&sposAnnlIncmAmt=" + sposAnnlIncmAmt 
-			+ "&sposDebtAmt=" + sposDebtAmt 
 			+ "&ownHsCnt=" + ownHsCnt
-			+ "&chldCnt=" + chldCnt
-
-			+ "&sngpHhldYn=" + sngpHhldYn 
-			+ "&plcyCmnrFinUseYn=" + plcyCmnrFinUseYn 
-			+ "&petySoweSftprYn=" + petySoweSftprYn 
-			+ "&crdtRcvrSprtYn=" + crdtRcvrSprtYn 
-			+ "&soclCnsdCndtYn=" + soclCnsdCndtYn 
-			+ "&dsblHhldYn=" + dsblHhldYn 
-			+ "&ntonMrorHhldYn=" + ntonMrorHhldYn 
-			+ "&kwrcHhldYn=" + kwrcHhldYn 
-			+ "&mlfmYn=" + mlfmYn
+			+ "&grntPrmeActnDvcdCont=" + grntPrmeActnDvcdCont 
 			;
+
+		log.info("url = " + url);
 
 		RestTemplate restTemplate = new RestTemplate();
 		String rspsStr = restTemplate.getForObject(url, String.class);
