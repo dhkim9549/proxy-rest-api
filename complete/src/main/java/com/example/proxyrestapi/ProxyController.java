@@ -23,11 +23,19 @@ public class ProxyController {
 	@Autowired
 	private TbApiKeyRepository tbApiKeyRepository;
 
+	private String getApiKey() {
+		
+		Optional<TbApiKey> optApiKey = tbApiKeyRepository.findById(0);
+                String apiKey = optApiKey.orElse(null).getApiKey();
+                log.info("apiKey = " + apiKey);
+
+		return apiKey;
+	}
+
 	@GetMapping(path="/jnse-rcmd-info", produces="application/json")
         public @ResponseBody String getJnseRcmdInfo(
 			@RequestParam(value = "rentGrntAmt") String rentGrntAmt,
-			@RequestParam(value = "addr1") String addr1,
-			@RequestParam(value = "addr2") String addr2,
+			@RequestParam(value = "trgtLwdgCd") String trgtLwdgCd,
 			@RequestParam(value = "age") String age,
 			@RequestParam(value = "weddStcd", defaultValue = "") String weddStcd,
 			@RequestParam(value = "myIncmAmt", defaultValue = "0") String myIncmAmt,
@@ -36,17 +44,14 @@ public class ProxyController {
 			@RequestParam(value = "grntPrmeActnDvcdCont", defaultValue = "") String grntPrmeActnDvcdCont
 			) {
 
-		Optional<TbApiKey> optApiKey = tbApiKeyRepository.findById(0);
-		String apiKey = optApiKey.orElse(null).getApiKey();
-		log.info("apiKey = " + apiKey);
+		String apiKey = getApiKey(); 
 
 		String url = "https://openapi.hf.go.kr:10880/jnse-rcmd-info/jnse-rcmd-list?"
 			+ "dataType=json"
 			+ "&SG_APIM=" + apiKey
 
 			+ "&rentGrntAmt=" + rentGrntAmt
-			+ "&addr1=" + addr1 
-			+ "&addr2=" + addr2 
+			+ "&trgtLwdgCd=" + trgtLwdgCd 
 			+ "&age=" + age 
 
 			+ "&weddStcd=" + weddStcd 
@@ -61,6 +66,72 @@ public class ProxyController {
 		RestTemplate restTemplate = new RestTemplate();
 		String rspsStr = restTemplate.getForObject(url, String.class);
 		log.info(rspsStr.toString());
+
+                return rspsStr;
+        }
+
+	@GetMapping(path="/jnse-max-rent-amt-list", produces="application/json")
+        public @ResponseBody String getJnseMaxRentMatList(
+                        @RequestParam(value = "grntDvcd") String grntDvcd
+                        ) {
+
+                String apiKey = getApiKey();
+
+                String url = "https://openapi.hf.go.kr:10880/jnse-rcmd-info/jnse-max-rent-amt-list?"
+                        + "dataType=json"
+                        + "&SG_APIM=" + apiKey
+                        + "&grntDvcd=" + grntDvcd 
+                        ;
+
+                log.info("url = " + url);
+
+                RestTemplate restTemplate = new RestTemplate();
+                String rspsStr = restTemplate.getForObject(url, String.class);
+                log.info(rspsStr.toString());
+
+                return rspsStr;
+        }
+
+	@GetMapping(path="/jnse-grtd-loan-rat-list", produces="application/json")
+        public @ResponseBody String getJnseGrtdLoanRatList(
+                        @RequestParam(value = "loanYm") String loanYm 
+                        ) {
+
+                String apiKey = getApiKey();
+
+                String url = "https://openapi.hf.go.kr:10880/jnse-rcmd-info/jnse-grtd-loan-rat-list?"
+                        + "dataType=json"
+                        + "&SG_APIM=" + apiKey
+                        + "&loanYm=" + loanYm 
+                        ;
+
+                log.info("url = " + url);
+
+                RestTemplate restTemplate = new RestTemplate();
+                String rspsStr = restTemplate.getForObject(url, String.class);
+                log.info(rspsStr.toString());
+
+                return rspsStr;
+        }
+
+	@GetMapping(path="/jnse-prod-dtl-info", produces="application/json")
+        public @ResponseBody String getJnseProdDtlInfo(
+                        @RequestParam(value = "grntDvcd") String grntDvcd
+                        ) {
+
+                String apiKey = getApiKey();
+
+                String url = "https://openapi.hf.go.kr:10880/jnse-rcmd-info/jnse-prod-dtl-info?"
+                        + "dataType=json"
+                        + "&SG_APIM=" + apiKey
+                        + "&grntDvcd=" + grntDvcd
+                        ;
+
+                log.info("url = " + url);
+
+                RestTemplate restTemplate = new RestTemplate();
+                String rspsStr = restTemplate.getForObject(url, String.class);
+                log.info(rspsStr.toString());
 
                 return rspsStr;
         }
