@@ -49,6 +49,8 @@ public class ProxyController {
 		String url = "https://openapi.hf.go.kr:10880/jnse-rcmd-info/jnse-rcmd-list?"
 			+ "dataType=json"
 			+ "&SG_APIM=" + apiKey
+			+ "&pageNo=1"
+			+ "&numOfRows=100"
 
 			+ "&rentGrntAmt=" + rentGrntAmt
 			+ "&trgtLwdgCd=" + trgtLwdgCd 
