@@ -82,6 +82,8 @@ public class ProxyController {
                 String url = "https://openapi.hf.go.kr:10880/jnse-rcmd-info/jnse-max-rent-amt-list?"
                         + "dataType=json"
                         + "&SG_APIM=" + apiKey
+                        + "&pageNo=1"
+                        + "&numOfRows=100"
                         + "&grntDvcd=" + grntDvcd 
                         ;
 
